@@ -6,6 +6,8 @@ import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
+import { server } from '../utils'
+
 const useStyles = makeStyles(theme => ({
   layout: {
     display: 'flex',
@@ -47,6 +49,21 @@ const Register = () => {
   })
   const [submitting, setSubmitting] = React.useState(false)
 
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const { firstName, lastName, email, password } = formData;
+    const { success, data } = await server.postAsync('/auth/register', {
+      firstName,
+      lastName,
+      email,
+      password
+    });
+    if (success) {
+      window.location.replace(data);
+      return;
+    }
+  }
+
   return (
     <main className={classes.layout}>
       <Paper className={classes.paper} elevation={2}>
@@ -55,7 +72,7 @@ const Register = () => {
             Register
           </Typography>
         </Box>
-        <form method='post' className={classes.form} noValidate>
+        <form method='post' className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField margin='normal' required fullWidth id='firstName' label='First Name' name='firstName' autoComplete='fname' autoFocus defaultValue={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} />
           <TextField margin='normal' required fullWidth id='lastName' label='Last Name' name='lastName' autoComplete='lname' defaultValue={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} />
           <TextField margin='normal' required fullWidth id='email' label='Email Address' name='email' autoComplete='email' defaultValue={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />

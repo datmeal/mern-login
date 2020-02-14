@@ -1,3 +1,5 @@
+import { server } from '../utils';
+
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -41,6 +43,20 @@ const LoginForm = () => {
   const [formData, setFormData] = React.useState({ email: '', password: '' })
   const [submitting, setSubmitting] = React.useState(false)
 
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const { email, password } = formData;
+    const { success, data } = await server.postAsync('/auth/login', {
+      email,
+      password
+    });
+
+    if (success) {
+      window.location.replace(data);
+      return;
+    }
+  }
+
   return (
     <main className={classes.layout}>
       <Paper className={classes.paper} elevation={2}>
@@ -57,7 +73,7 @@ const LoginForm = () => {
             Log in to your account dashboard
           </Typography>
         </Box>
-        <form method="post" className={classes.form} noValidate>
+        <form method="post" className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             margin="normal"
             required
