@@ -8,4 +8,8 @@ async function getUserByEmail(email) {
   return await UserModel.findOne({ email }).exec();
 };
 
-export { getUserById, getUserByEmail };
+async function getUserByProviderId(providerId) {
+  return await UserModel.findOne({ providerId }).exec();
+};
+
+export { getUserById, getUserByEmail, getUserByProviderId };
