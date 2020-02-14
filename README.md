@@ -30,19 +30,25 @@ Start the server
 npm run dev
 ```
 
-## Google Registration
+### Google Registration
 
 Head to http://localhost:3000/login/
 
-## Normal Registration without Google
+### Normal Registration without Google
 
 Head to http://localhost:3000/register/
 
-## Check Login Status
+### Check Login Status
 1. Open Web Inspector
 2. Open Application tab
 3. Copy the value of 'jwt' under 'Cookies' section
 4. Go to https://jwt.io/, go to Debugger and paste the 'jwt' value from step 3.
+
+## To Do
+1. Better front end template for boilerplate use
+2. Explanation of acquiring MongoDB Atlas
+3. Explanation of acquiring Google OAuth 2.0 Client ID
+
 
 ## Built With
 
